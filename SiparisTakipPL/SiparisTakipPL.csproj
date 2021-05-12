@@ -1,0 +1,165 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{D27A10E0-1CFC-4C1F-9E74-3A542D54E621}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>SiparisTakipPL</RootNamespace>
+    <AssemblyName>SiparisTakipPL</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AnaForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AnaForm.Designer.cs">
+      <DependentUpon>AnaForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LoginForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LoginForm.Designer.cs">
+      <DependentUpon>LoginForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Parametre.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SiparisDetayDuzenle.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SiparisDetayDuzenle.Designer.cs">
+      <DependentUpon>SiparisDetayDuzenle.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SiparisDetayEkle.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SiparisDetayEkle.Designer.cs">
+      <DependentUpon>SiparisDetayEkle.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SiparisEkle.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SiparisEkle.Designer.cs">
+      <DependentUpon>SiparisEkle.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Siparislerim.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Siparislerim.Designer.cs">
+      <DependentUpon>Siparislerim.cs</DependentUpon>
+    </Compile>
+    <Compile Include="YuklemePlaniDetayEkle.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="YuklemePlaniDetayEkle.Designer.cs">
+      <DependentUpon>YuklemePlaniDetayEkle.cs</DependentUpon>
+    </Compile>
+    <Compile Include="YuklemePlaniEkle.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="YuklemePlaniEkle.Designer.cs">
+      <DependentUpon>YuklemePlaniEkle.cs</DependentUpon>
+    </Compile>
+    <Compile Include="YuklemePlanlari.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="YuklemePlanlari.Designer.cs">
+      <DependentUpon>YuklemePlanlari.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="AnaForm.resx">
+      <DependentUpon>AnaForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LoginForm.resx">
+      <DependentUpon>LoginForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="SiparisDetayDuzenle.resx">
+      <DependentUpon>SiparisDetayDuzenle.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SiparisDetayEkle.resx">
+      <DependentUpon>SiparisDetayEkle.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SiparisEkle.resx">
+      <DependentUpon>SiparisEkle.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Siparislerim.resx">
+      <DependentUpon>Siparislerim.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="YuklemePlaniDetayEkle.resx">
+      <DependentUpon>YuklemePlaniDetayEkle.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="YuklemePlaniEkle.resx">
+      <DependentUpon>YuklemePlaniEkle.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="YuklemePlanlari.resx">
+      <DependentUpon>YuklemePlanlari.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Business\Business.csproj">
+      <Project>{4212B51C-8F19-46A6-B973-AA9A5A788AD3}</Project>
+      <Name>Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Entities\Entities.csproj">
+      <Project>{B8A8BD50-C712-4B56-99EB-8C01472826F9}</Project>
+      <Name>Entities</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
