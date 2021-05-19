@@ -41,7 +41,8 @@ namespace SiparisTakipPL
 
         public static int _siparisId = 0;
         public static int _siparisDetayId = 0;
-           
+        public static int _kalanAdet = 0;
+
         private void SiparisDetaylariListele()
         {
             dgvSiparisDetaylari.DataSource = _siparisDetayService.SiparisDetayDegerleriListele(_siparisId);
@@ -52,10 +53,12 @@ namespace SiparisTakipPL
             dgvSiparisler.DataSource = _siparisService.SiparisleriListele();
             lblYuklemePlaniId.Text = Parametre._yuklemePlaniId.ToString();
 
-            YuklemePlaniDeger yuklemePlaniDeger= _yuklemePlaniService.yuklemePlaniDegerleri(Parametre._yuklemePlaniId);
+            var yuklemePlaniDeger= _yuklemePlaniService.yuklemePlaniDegerleri(Parametre._yuklemePlaniId);
             lblSevkAdres.Text = yuklemePlaniDeger.SevkAdres;
             lblSevkArac.Text = yuklemePlaniDeger.SevkArac;
             lblYuklemePlaniAd.Text = yuklemePlaniDeger.YuklemePlaniAd;
+
+            YuklemePlaniDetaylariListele();
 
         }
 
@@ -68,19 +71,61 @@ namespace SiparisTakipPL
         private void dgvSiparisDetaylari_CellClick_1(object sender, DataGridViewCellEventArgs e)
         {
             _siparisDetayId = Convert.ToInt32(dgvSiparisDetaylari.CurrentRow.Cells[0].Value);
+            _kalanAdet= Convert.ToInt32(dgvSiparisDetaylari.CurrentRow.Cells["kalanAdet"].Value);
+
             Parametre.SiparisAdet = Convert.ToInt32(dgvSiparisDetaylari.CurrentRow.Cells["Adet"].Value);
         }
 
         private void btnEkle_Click(object sender, EventArgs e)
         {
-            _yuklemePlaniDetayService.Ekle(new YuklemePlaniDetay
+            if (_siparisDetayId != 0)
             {
-                YuklemePlaniId = Parametre._yuklemePlaniId,
-                SiparisDetayId = _siparisDetayId,
-                Adet=(int)numAdet.Value
+                if (numAdet.Value > _kalanAdet)
+                {
+                    MessageBox.Show("Kalan Adetten Fazla ürün Eklenemez!", "Sipariş Takip");
+                }
+                else
+                {
+
+                    _yuklemePlaniDetayService.Ekle(new YuklemePlaniDetay
+                    {
+                        YuklemePlaniId = Parametre._yuklemePlaniId,
+                        SiparisDetayId = _siparisDetayId,
+                        Adet = (int)numAdet.Value
+                    });
+
+                    YuklemePlaniDetaylariListele();
+                    SiparisDetaylariListele();
+
+                    _siparisDetayId = 0;
+
+                }
+            }
+            else
+            {
+                MessageBox.Show("Sipariş Seçilmedi!", "Sipariş Takip");
+            }
+        }
+
+        private void YuklemePlaniDetaylariListele()
+        {
+            dgvYuklemePlani.DataSource = _yuklemePlaniDetayService.YuklemePlaniDetayListele(Parametre._yuklemePlaniId);
+        }
+
+        private void dgvYuklemePlani_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            Parametre._yuklemePlaniDetayId = Convert.ToInt32(dgvYuklemePlani.CurrentRow.Cells[0].Value);
+        }
+
+        private void btnSil_Click(object sender, EventArgs e)
+        {
+            _yuklemePlaniDetayService.Sil(new YuklemePlaniDetay
+            {
+                Id = Parametre._yuklemePlaniDetayId
             });
 
-           dgvYuklemePlani.DataSource=  _yuklemePlaniDetayService.YuklemePlaniDetayListele(Parametre._yuklemePlaniId);
+            YuklemePlaniDetaylariListele();
+            SiparisDetaylariListele();
         }
     }
 }

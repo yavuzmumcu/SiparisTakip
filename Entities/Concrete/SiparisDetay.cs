@@ -21,5 +21,7 @@ namespace Entities.Concrete
         public int YuklemeTipId { get; set; }
         public int PaletId { get; set; }
         public string Kutu { get; set; }
+
+        public int KalanAdet { get; set; }
     }
 }

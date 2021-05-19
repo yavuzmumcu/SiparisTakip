@@ -68,7 +68,7 @@
             // 
             // panelSevk
             // 
-            this.panelSevk.BackColor = System.Drawing.Color.Khaki;
+            this.panelSevk.BackColor = System.Drawing.Color.LightGoldenrodYellow;
             this.panelSevk.Controls.Add(this.txtSevkAdres);
             this.panelSevk.Controls.Add(this.cmbSevkArac);
             this.panelSevk.Controls.Add(this.label11);
@@ -122,11 +122,16 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.ClientSize = new System.Drawing.Size(462, 247);
             this.Controls.Add(this.panelSevk);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnEkle);
             this.Controls.Add(this.txtYuklemePlaniAd);
+            this.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "YuklemePlaniEkle";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "YuklemePlaniEkle";

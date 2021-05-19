@@ -31,6 +31,7 @@
             this.dgvYuklemePlanlari = new System.Windows.Forms.DataGridView();
             this.btnPlanOlustur = new System.Windows.Forms.Button();
             this.dgvYuklemePlaniDetaylari = new System.Windows.Forms.DataGridView();
+            this.btnDuzenle = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvYuklemePlanlari)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvYuklemePlaniDetaylari)).BeginInit();
             this.SuspendLayout();
@@ -74,11 +75,22 @@
             this.dgvYuklemePlaniDetaylari.Size = new System.Drawing.Size(1011, 305);
             this.dgvYuklemePlaniDetaylari.TabIndex = 25;
             // 
+            // btnDuzenle
+            // 
+            this.btnDuzenle.Location = new System.Drawing.Point(527, 51);
+            this.btnDuzenle.Name = "btnDuzenle";
+            this.btnDuzenle.Size = new System.Drawing.Size(75, 23);
+            this.btnDuzenle.TabIndex = 26;
+            this.btnDuzenle.Text = "DÜZENLE";
+            this.btnDuzenle.UseVisualStyleBackColor = true;
+            this.btnDuzenle.Click += new System.EventHandler(this.btnDuzenle_Click);
+            // 
             // YuklemePlanlari
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1035, 648);
+            this.Controls.Add(this.btnDuzenle);
             this.Controls.Add(this.dgvYuklemePlaniDetaylari);
             this.Controls.Add(this.btnPlanOlustur);
             this.Controls.Add(this.dgvYuklemePlanlari);
@@ -97,5 +109,6 @@
         private System.Windows.Forms.DataGridView dgvYuklemePlanlari;
         private System.Windows.Forms.Button btnPlanOlustur;
         private System.Windows.Forms.DataGridView dgvYuklemePlaniDetaylari;
+        private System.Windows.Forms.Button btnDuzenle;
     }
 }

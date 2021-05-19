@@ -52,5 +52,10 @@ namespace SiparisTakipPL
             Parametre._yuklemePlaniId = Convert.ToInt32(dgvYuklemePlanlari.CurrentRow.Cells[0].Value);
             dgvYuklemePlaniDetaylari.DataSource = _yuklemePlaniDetayService.YuklemePlaniDetayListele(Parametre._yuklemePlaniId);
         }
+
+        private void btnDuzenle_Click(object sender, EventArgs e)
+        {
+            new YuklemePlaniDetayEkle().Show();
+        }
     }
 }

@@ -13,5 +13,9 @@ namespace Business.Abstract
         int Ekle(YuklemePlaniDetay yuklemePlaniDetay);
 
         List<YuklemePlaniDetayListe> YuklemePlaniDetayListele(int yuklemePlaniId);
+
+        int Sil(YuklemePlaniDetay yuklemePlaniDetay);
+
+        List<YuklemePlaniDetay> YuklemePlaniDetayListeleBySiparisId(int siparisDetayId);
     }
 }

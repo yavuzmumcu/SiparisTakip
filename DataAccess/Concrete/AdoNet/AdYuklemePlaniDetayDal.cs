@@ -52,6 +52,7 @@ namespace DataAccess.Concrete.AdoNet
                         yuklemePlaniDetaylari.Add(
                         new YuklemePlaniDetayListe
                         {
+                            DetayId= Convert.ToInt32(dataReader["detayId"]),
                             MusteriAd = dataReader["MusteriAd"].ToString(),
                            
                             StokKod = dataReader["stokkod"].ToString(),
@@ -72,6 +73,63 @@ namespace DataAccess.Concrete.AdoNet
             }
             catch (Exception)
             {
+                return null;
+            }
+            finally
+            {
+                Baglanti.sqlCon.Close();
+            }
+        }
+
+        public int Sil(YuklemePlaniDetay yuklemePlaniDetay)
+        {
+            using (SqlCommand command = new SqlCommand("DELETE FROM SiparisTakip.YuklemePlaniDetaylari WHERE Id=@yuklemePlaniDetayId ", Baglanti.sqlCon))
+            {
+                command.Parameters.AddWithValue("@yuklemePlaniDetayId", yuklemePlaniDetay.Id);
+                Baglanti.OpenConnection();
+
+                int result = command.ExecuteNonQuery();
+
+                Baglanti.sqlCon.Close();
+
+                return result;
+            }
+        }
+
+        public List<YuklemePlaniDetay> YuklemePlaniDetayListeleBySiparisId(int siparisDetayId)
+        {
+            SqlCommand command = new SqlCommand("SELECT * FROM SiparisTakip.YuklemePlaniDetaylari WHERE siparisDetayId=@siparisDetayId", Baglanti.sqlCon);
+            try
+            {
+                command.Parameters.AddWithValue("@siparisDetayId", siparisDetayId);
+
+                Baglanti.OpenConnection();
+                SqlDataReader dataReader = command.ExecuteReader();
+
+                if (dataReader.HasRows)
+                {
+                    var yuklemePlaniDetaylari = new List<YuklemePlaniDetay>();
+
+                    while (dataReader.Read())
+                    {
+                        yuklemePlaniDetaylari.Add(
+                        new YuklemePlaniDetay
+                        {
+                           Id=Convert.ToInt32(dataReader["Id"])
+
+
+                        }) ;
+                    }
+                    return yuklemePlaniDetaylari;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception)
+            {
+              
                 return null;
             }
             finally

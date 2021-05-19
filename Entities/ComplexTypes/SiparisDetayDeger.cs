@@ -15,6 +15,7 @@ namespace Entities.ComplexTypes
         public int Adet { get; set; }
         public string YuklemeTip { get; set; }
         public string Palet { get; set; }
+        public int KalanAdet { get; set; }
 
     }
 }

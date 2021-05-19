@@ -42,25 +42,17 @@ namespace SiparisTakipPL
             lblSiparisId.Text = SiparisEkle._siparisId.ToString();
             cbLogo.Checked = false;
 
-            cmbRenk.DataSource = _renkService.RenkListele();
-            cmbRenk.DisplayMember = "renkad";
-            cmbRenk.ValueMember = "renkId";
 
-            cmbUrun.DataSource = _urunService.UrunListele();
-            cmbUrun.DisplayMember = "stokkod";
-            cmbUrun.ValueMember = "UrunId";
+            Utilities.LoadComboBox(cmbRenk, _renkService.RenkListele(), "renkad", "renkId");
 
-            cmbKalite.DataSource = _kaliteService.KaliteListele();
-            cmbKalite.DisplayMember = "kaliteAd";
-            cmbKalite.ValueMember = "kaliteId";
+            Utilities.LoadComboBox(cmbUrun, _urunService.UrunListele(), "stokkod", "UrunId");
 
-            cmbPalet.DataSource = _otherEntitiesService.PaletListele();
-            cmbPalet.DisplayMember = "PaletAd";
-            cmbPalet.ValueMember = "PaletId";        
+            Utilities.LoadComboBox(cmbKalite, _kaliteService.KaliteListele(), "kaliteAd", "kaliteId");
 
-            cmbYuklemeTip.DataSource = _otherEntitiesService.YuklemeTipListele();
-            cmbYuklemeTip.DisplayMember = "YuklemeTipAd";
-            cmbYuklemeTip.ValueMember = "YuklemeTipId";
+            Utilities.LoadComboBox(cmbPalet, _otherEntitiesService.PaletListele(), "PaletAd", "PaletId");
+
+            Utilities.LoadComboBox(cmbYuklemeTip, _otherEntitiesService.YuklemeTipListele(), "YuklemeTipAd", "YuklemeTipId");
+    
 
             cmbKalite.SelectedValue = 2;
             cmbRenk.SelectedValue = 1;
@@ -69,9 +61,10 @@ namespace SiparisTakipPL
             
 
 
-            AutoComplete(cmbUrun);
+            Utilities.AutoComplete(cmbUrun);
 
-            SiparisDeger siparisDeger = _siparisService.siparisDegerleriniGetir(SiparisEkle._siparisId);
+            var siparisDeger = _siparisService.siparisDegerleriniGetir(SiparisEkle._siparisId);
+
             lblMusteriAd.Text = siparisDeger.MusteriAd;
             lblSiparisTarih.Text = siparisDeger.SiparisTarih.ToShortDateString();
 
@@ -79,23 +72,13 @@ namespace SiparisTakipPL
 
             if (dgvSiparisDetaylari.RowCount>0)
             {
-               SevkBilgi sevkBilgi= _sevkBilgiService.SevkBilgileriGetir(SiparisEkle._siparisId);
+               var sevkBilgi= _sevkBilgiService.SevkBilgileriGetir(SiparisEkle._siparisId);
                 
             }
             
         }
 
-        public void AutoComplete(ComboBox comboBox)
-        {
-            AutoCompleteStringCollection collection = new AutoCompleteStringCollection();
-            comboBox.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-            comboBox.AutoCompleteSource = AutoCompleteSource.CustomSource;
-            for (int i = 0; i < comboBox.Items.Count; i++)
-            {
-                collection.Add(comboBox.GetItemText(comboBox.Items[i]));
-            }
-            comboBox.AutoCompleteCustomSource = collection;
-        }
+        
 
         private void SiparisDetayEkle_FormClosed(object sender, FormClosedEventArgs e)
         {
@@ -166,28 +149,14 @@ namespace SiparisTakipPL
 
         private void cmbUrun_Leave(object sender, EventArgs e)
         {
-            CombobxControl(cmbUrun, label3);
+           Utilities.CombobxControl(cmbUrun, label3);
         }
 
-        public void CombobxControl(ComboBox comboBox, Label label)
-        {
-            if (comboBox.FindStringExact(comboBox.Text) != -1)
-            {
-                label.ForeColor = Color.Black;
-                comboBox.ForeColor = Color.Black;
-            }
-            else
-            {
-                MessageBox.Show("Geçersiz Değer.");
-                comboBox.SelectedIndex = 0;
-                label.ForeColor = Color.Red;
-                comboBox.ForeColor = Color.Red;
-            }
-        }
+        
 
         private void cmbYuklemeTip_SelectedIndexChanged(object sender, EventArgs e)
         {
-            YuklemeTip yuklemeTip = _otherEntitiesService.Kutu((int)cmbYuklemeTip.SelectedIndex);
+            var yuklemeTip = _otherEntitiesService.Kutu((int)cmbYuklemeTip.SelectedIndex);
 
             if (yuklemeTip != null)
             {
@@ -209,9 +178,15 @@ namespace SiparisTakipPL
 
         private void btnSil_Click(object sender, EventArgs e)
         {
-            _siparisDetayService.Sil(new SiparisDetay { SiparisDetayId = _siparisDetayId });
-
-            SiparisDetaylariniListele();
+            var result=_siparisDetayService.Sil(new SiparisDetay { SiparisDetayId = _siparisDetayId });
+            if (result == 0)
+            {
+                MessageBox.Show("Siparişe ait Yükleme Planı oluşturulduğu için Sipariş Silinemiyor!","Sipariş Takip");
+            }
+            else
+            {
+                SiparisDetaylariniListele();
+            }
         }
 
         private void dgvSiparisDetaylari_CellClick(object sender, DataGridViewCellEventArgs e)

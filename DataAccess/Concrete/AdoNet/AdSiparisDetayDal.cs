@@ -14,8 +14,8 @@ namespace DataAccess.Concrete.AdoNet
     {
         public int Ekle(SiparisDetay siparisDetay)
         {
-            SqlCommand command = new SqlCommand("INSERT INTO SiparisTakip.SiparisDetaylari (siparisId,UrunId,KaliteId,RenkId,Logo,Adet,Aciklama,YuklemeTipId,PaletId,Kutu)" +
-                "VALUES(@siparisId,@UrunId,@KaliteId,@RenkId,@Logo,@Adet,@Aciklama,@YuklemeTipId,@PaletId,@kutu) SELECT SCOPE_IDENTITY()", Baglanti.sqlCon);
+            SqlCommand command = new SqlCommand("INSERT INTO SiparisTakip.SiparisDetaylari (siparisId,UrunId,KaliteId,RenkId,Logo,Adet,Aciklama,YuklemeTipId,PaletId,Kutu,kalanAdet)" +
+                "VALUES(@siparisId,@UrunId,@KaliteId,@RenkId,@Logo,@Adet,@Aciklama,@YuklemeTipId,@PaletId,@kutu,@kalanAdet) SELECT SCOPE_IDENTITY()", Baglanti.sqlCon);
 
             command.Parameters.AddWithValue("@siparisId", siparisDetay.SiparisId);
             command.Parameters.AddWithValue("@UrunId", siparisDetay.UrunId);
@@ -27,6 +27,7 @@ namespace DataAccess.Concrete.AdoNet
             command.Parameters.AddWithValue("@YuklemeTipId", siparisDetay.YuklemeTipId);
             command.Parameters.AddWithValue("@PaletId", siparisDetay.PaletId);
             command.Parameters.AddWithValue("@Kutu", siparisDetay.Kutu);
+            command.Parameters.AddWithValue("@KalanAdet", siparisDetay.Adet);
             Baglanti.OpenConnection();
 
             int result = Convert.ToInt32(command.ExecuteScalar());
@@ -74,6 +75,7 @@ namespace DataAccess.Concrete.AdoNet
                             Adet = Convert.ToInt32(dataReader["Adet"]),
                             YuklemeTip = dataReader["YuklemeTip"].ToString(),
                             Palet = dataReader["palet"].ToString(),
+                            KalanAdet= Convert.ToInt32(dataReader["kalanAdet"]),
 
                         });
                     }
@@ -136,7 +138,7 @@ namespace DataAccess.Concrete.AdoNet
         public int Guncelle(SiparisDetay siparisDetay)
         {
             using (SqlCommand command = new SqlCommand("UPDATE SiparisTakip.siparisDetaylari SET " +
-                "urunId=@urunId,kaliteId=@kaliteId,renkId=@renkId,Logo=@Logo,Adet=@adet,aciklama=@aciklama,yuklemeTipID=@yuklemeTipID,paletId=@paletId,kutu=@kutu " +
+                "urunId=@urunId,kaliteId=@kaliteId,renkId=@renkId,Logo=@Logo,Adet=@adet,aciklama=@aciklama,yuklemeTipID=@yuklemeTipID,paletId=@paletId,kutu=@kutu,kalanAdet=@kalanAdet " +
                 "WHERE Id=@Id",
                 Baglanti.sqlCon))
             {
@@ -149,6 +151,7 @@ namespace DataAccess.Concrete.AdoNet
                 command.Parameters.AddWithValue("@yuklemeTipID", siparisDetay.YuklemeTipId);
                 command.Parameters.AddWithValue("@paletId", siparisDetay.PaletId);
                 command.Parameters.AddWithValue("@kutu", siparisDetay.Kutu);
+                command.Parameters.AddWithValue("@kalanAdet", siparisDetay.Adet);
 
                 command.Parameters.AddWithValue("@Id", siparisDetay.SiparisDetayId);
 

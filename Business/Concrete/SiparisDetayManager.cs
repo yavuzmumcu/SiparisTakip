@@ -12,11 +12,13 @@ namespace Business.Concrete
 {
     public class SiparisDetayManager:ISiparisDetayService
     {
-        public SiparisDetayManager(ISiparisDetayDal siparisDetayDal)
+        public SiparisDetayManager(ISiparisDetayDal siparisDetayDal,IYuklemePlaniDetayService yuklemePlaniDetayService)
         {
             _siparisDetayDal = siparisDetayDal;
+            _yuklemePlaniDetayService = yuklemePlaniDetayService;
         }
         ISiparisDetayDal _siparisDetayDal;
+        IYuklemePlaniDetayService _yuklemePlaniDetayService;
 
         public int Ekle(SiparisDetay siparisDetay)
         {
@@ -27,8 +29,7 @@ namespace Business.Concrete
             else
             {
                 return _siparisDetayDal.Ekle(siparisDetay);
-            }
-            
+            }           
         }
 
         public List<SiparisDetayDeger> SiparisDetayDegerleriListele(int siparisId)
@@ -38,7 +39,14 @@ namespace Business.Concrete
 
         public int Sil(SiparisDetay siparisDetay)
         {
-            return _siparisDetayDal.Sil(siparisDetay);
+            if (_yuklemePlaniDetayService.YuklemePlaniDetayListeleBySiparisId(siparisDetay.SiparisDetayId) != null)
+            {
+                return 0;
+            }
+            else
+            {
+                return _siparisDetayDal.Sil(siparisDetay);
+            }
         }
 
         public SiparisDetay SiparisDetay(int siparisId)
@@ -48,7 +56,14 @@ namespace Business.Concrete
 
         public int Guncelle(SiparisDetay siparisDetay)
         {
-            return _siparisDetayDal.Guncelle(siparisDetay);
+            if (_yuklemePlaniDetayService.YuklemePlaniDetayListeleBySiparisId(siparisDetay.SiparisDetayId) != null)
+            {
+                return 0;
+            }
+            else
+            {
+                return _siparisDetayDal.Guncelle(siparisDetay);
+            }
         }
     }
 }

@@ -40,11 +40,9 @@ namespace SiparisTakipPL
 
         private void YuklemePlaniEkle_Load(object sender, EventArgs e)
         {
-            cmbSevkArac.DataSource = _otherEntitiesService.SevkAracListele();
-            cmbSevkArac.DisplayMember = "sevkAracAd";
-            cmbSevkArac.ValueMember = "sevkAracId";
-
-            new SiparisDetayEkle().AutoComplete(cmbSevkArac);
+            
+            Utilities.LoadComboBox(cmbSevkArac, _otherEntitiesService.SevkAracListele(), "sevkAracAd", "sevkAracId");
+            Utilities.AutoComplete(cmbSevkArac);
         }
 
         private void btnEkle_Click(object sender, EventArgs e)

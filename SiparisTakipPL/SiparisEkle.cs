@@ -24,7 +24,7 @@ namespace SiparisTakipPL
 
         private void btnEkle_Click(object sender, EventArgs e)
         {
-            int result = _siparisId = _siparisService.Ekle(new Siparis
+            var result =  _siparisService.Ekle(new Siparis
             {
                 SiparisNo = "10001",
                 MusteriId = (int)cmbMusteri.SelectedValue,
@@ -35,11 +35,12 @@ namespace SiparisTakipPL
 
             if (result == 0)
             {
-                MessageBox.Show("Müşteri Alanı Boş. Müşteri Seçin!");
+                MessageBox.Show("Müşteri Alanı Boş. Müşteri Seçin!","Sipariş Takip");
             }
 
             else
             {
+                _siparisId = result;
                 this.Hide();
                 new SiparisDetayEkle().ShowDialog();
                 this.Close();
@@ -48,16 +49,14 @@ namespace SiparisTakipPL
 
         private void SiparisEkle_Load(object sender, EventArgs e)
         {
-            cmbMusteri.DataSource = _musteriService.MusteriListele();
-            cmbMusteri.DisplayMember = "MusteriAd";
-            cmbMusteri.ValueMember = "MusteriId";
+            Utilities.LoadComboBox(cmbMusteri, _musteriService.MusteriListele(), "MusteriAd", "MusteriId");
 
-            new SiparisDetayEkle().AutoComplete(cmbMusteri);
+            Utilities.AutoComplete(cmbMusteri);
         }
 
         private void cmbMusteri_Leave(object sender, EventArgs e)
         {
-            new SiparisDetayEkle().CombobxControl(cmbMusteri, label1);
+            Utilities.CombobxControl(cmbMusteri, label1);
         }
     }
 }

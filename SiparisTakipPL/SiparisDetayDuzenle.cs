@@ -40,7 +40,7 @@ namespace SiparisTakipPL
 
             ComboboxDoldur();
 
-            new SiparisDetayEkle().AutoComplete(cmbUrun);
+            Utilities.AutoComplete(cmbUrun);
 
             SiparisDetaylariniGetir();
 
@@ -48,30 +48,21 @@ namespace SiparisTakipPL
 
         private void ComboboxDoldur()
         {
-            cmbRenk.DataSource = _renkService.RenkListele();
-            cmbRenk.DisplayMember = "renkad";
-            cmbRenk.ValueMember = "renkId";
+            Utilities.LoadComboBox(cmbRenk, _renkService.RenkListele(), "renkad", "renkId");
 
-            cmbUrun.DataSource = _urunService.UrunListele();
-            cmbUrun.DisplayMember = "stokkod";
-            cmbUrun.ValueMember = "UrunId";
+            Utilities.LoadComboBox(cmbUrun, _urunService.UrunListele(), "stokkod", "UrunId");
 
-            cmbKalite.DataSource = _kaliteService.KaliteListele();
-            cmbKalite.DisplayMember = "kaliteAd";
-            cmbKalite.ValueMember = "kaliteId";
+            Utilities.LoadComboBox(cmbKalite, _kaliteService.KaliteListele(), "kaliteAd", "kaliteId");
 
-            cmbPalet.DataSource = _otherEntitiesService.PaletListele();
-            cmbPalet.DisplayMember = "PaletAd";
-            cmbPalet.ValueMember = "PaletId";
+            Utilities.LoadComboBox(cmbPalet, _otherEntitiesService.PaletListele(), "PaletAd", "PaletId");
 
-            cmbYuklemeTip.DataSource = _otherEntitiesService.YuklemeTipListele();
-            cmbYuklemeTip.DisplayMember = "YuklemeTipAd";
-            cmbYuklemeTip.ValueMember = "YuklemeTipId";
+            Utilities.LoadComboBox(cmbYuklemeTip, _otherEntitiesService.YuklemeTipListele(), "YuklemeTipAd", "YuklemeTipId");
         }
 
         private void SiparisDetaylariniGetir()
         {
-            SiparisDetay siparisDetay = _siparisDetayService.SiparisDetay(Siparislerim._siparisDetayId);
+            var siparisDetay = _siparisDetayService.SiparisDetay(Siparislerim._siparisDetayId);
+
             cmbKalite.SelectedValue = siparisDetay.KaliteId;
             cmbUrun.SelectedValue = siparisDetay.UrunId;
             cmbRenk.SelectedValue = siparisDetay.RenkId;
@@ -85,12 +76,12 @@ namespace SiparisTakipPL
 
         private void cmbUrun_Leave(object sender, EventArgs e)
         {
-            new SiparisDetayEkle().CombobxControl(cmbUrun, label3);
+            Utilities.CombobxControl(cmbUrun, label3);
         }
 
         private void btnGuncelle_Click(object sender, EventArgs e)
         {
-            _siparisDetayService.Guncelle(new SiparisDetay
+            var reuslt=_siparisDetayService.Guncelle(new SiparisDetay
             {
                 UrunId=(int)cmbUrun.SelectedValue,
                 KaliteId = (int)cmbKalite.SelectedValue,
@@ -105,11 +96,19 @@ namespace SiparisTakipPL
                 SiparisDetayId = Siparislerim._siparisDetayId
 
             });
+            if (reuslt==0)
+            {
+                MessageBox.Show("Siparişe ait Yükleme Planı oluşturulduğu için Sipariş Güncellenemyior!");
+            }
+            else
+            {
+                MessageBox.Show("Kayıt Başarıyla Güncellendi!");
+            }
         }
 
         private void cmbYuklemeTip_SelectedIndexChanged(object sender, EventArgs e)
         {
-            YuklemeTip yuklemeTip = _otherEntitiesService.Kutu((int)cmbYuklemeTip.SelectedIndex);
+            var yuklemeTip = _otherEntitiesService.Kutu((int)cmbYuklemeTip.SelectedIndex);
 
             if (yuklemeTip != null)
             {

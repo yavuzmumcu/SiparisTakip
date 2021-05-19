@@ -41,6 +41,7 @@
             this.lblSevkAdres = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.lblYuklemePlaniAd = new System.Windows.Forms.Label();
+            this.btnSil = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.numAdet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvYuklemePlani)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSiparisDetaylari)).BeginInit();
@@ -86,6 +87,7 @@
             this.dgvYuklemePlani.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvYuklemePlani.Size = new System.Drawing.Size(907, 280);
             this.dgvYuklemePlani.TabIndex = 32;
+            this.dgvYuklemePlani.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvYuklemePlani_CellClick);
             // 
             // dgvSiparisDetaylari
             // 
@@ -193,11 +195,23 @@
             this.lblYuklemePlaniAd.TabIndex = 41;
             this.lblYuklemePlaniAd.Text = "label1";
             // 
+            // btnSil
+            // 
+            this.btnSil.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSil.Location = new System.Drawing.Point(1186, 647);
+            this.btnSil.Name = "btnSil";
+            this.btnSil.Size = new System.Drawing.Size(75, 23);
+            this.btnSil.TabIndex = 43;
+            this.btnSil.Text = "SİL";
+            this.btnSil.UseVisualStyleBackColor = true;
+            this.btnSil.Click += new System.EventHandler(this.btnSil_Click);
+            // 
             // YuklemePlaniDetayEkle
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1273, 726);
+            this.Controls.Add(this.btnSil);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.lblYuklemePlaniAd);
             this.Controls.Add(this.lblSevkAdres);
@@ -238,5 +252,6 @@
         private System.Windows.Forms.Label lblSevkAdres;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label lblYuklemePlaniAd;
+        private System.Windows.Forms.Button btnSil;
     }
 }

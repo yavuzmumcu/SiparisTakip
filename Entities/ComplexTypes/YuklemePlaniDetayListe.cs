@@ -8,6 +8,7 @@ namespace Entities.ComplexTypes
 {
     public class YuklemePlaniDetayListe
     {
+        public int DetayId { get; set; }
         public int Id { get; set; }
         public string MusteriAd { get; set; }
         public string StokKod { get; set; }

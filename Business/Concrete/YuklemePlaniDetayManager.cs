@@ -26,5 +26,15 @@ namespace Business.Concrete
         {
             return _yuklemePlaniDetayDal.YuklemePlaniDetayListele(yuklemePlaniId);
         }
+
+        public int Sil(YuklemePlaniDetay yuklemePlaniDetay)
+        {
+            return _yuklemePlaniDetayDal.Sil(yuklemePlaniDetay);
+        }
+
+        public List<YuklemePlaniDetay> YuklemePlaniDetayListeleBySiparisId(int siparisDetayId)
+        {
+            return _yuklemePlaniDetayDal.YuklemePlaniDetayListeleBySiparisId(siparisDetayId);
+        }
     }
 }

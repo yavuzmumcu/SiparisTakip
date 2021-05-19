@@ -20,10 +20,13 @@ namespace SiparisTakipPL
             InitializeComponent();
             _siparisService = InstanceFactory.GetInstance<ISiparisService>();
             _siparisDetayService = InstanceFactory.GetInstance<ISiparisDetayService>();
+            _yuklemePlaniDetayService = InstanceFactory.GetInstance<IYuklemePlaniDetayService>();
         }
         
         ISiparisService _siparisService;
         ISiparisDetayService _siparisDetayService;
+        IYuklemePlaniDetayService _yuklemePlaniDetayService;
+
         public static int _siparisId = 0;
         public static int _siparisDetayId = 0;
 
@@ -50,13 +53,35 @@ namespace SiparisTakipPL
 
         private void btnDuzenle_Click(object sender, EventArgs e)
         {
-            new SiparisDetayDuzenle().ShowDialog();
+            
+                new SiparisDetayDuzenle().ShowDialog();
+            
+            
         }
 
         private void btnSiparisDetaySil_Click(object sender, EventArgs e)
         {
-            _siparisDetayService.Sil(new SiparisDetay { SiparisDetayId = _siparisDetayId });
-            SiparisDetaylariListele();
+            DialogResult sil = MessageBox.Show("Siparişi Silmek İstiyor musunuz?", "Sipariş Takip", MessageBoxButtons.YesNoCancel);
+            if (sil==DialogResult.Yes)
+            {
+                var result = _siparisDetayService.Sil(new SiparisDetay { SiparisDetayId = _siparisDetayId });
+
+                if (result==0)
+                {
+                    MessageBox.Show("Siparişe ait Yükleme Planı oluşturulduğu için Sipariş Silinemiyor!","Sipariş Takip");
+                }
+                else
+                {
+                    SiparisDetaylariListele();
+                }
+
+                
+            }
+            else
+            {
+
+            }
+            
         }
 
         private void btnSipariseEkle_Click(object sender, EventArgs e)

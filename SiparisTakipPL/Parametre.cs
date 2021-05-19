@@ -14,5 +14,6 @@ namespace SiparisTakipPL
         public static int _personelId, _yetki, _birimId;
         public static int _yuklemePlaniId;
         public static int SiparisAdet;
+        public static int _yuklemePlaniDetayId;
     }
 }
