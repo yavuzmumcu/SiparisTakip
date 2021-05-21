@@ -34,6 +34,7 @@ namespace SiparisTakipPL
         ISevkBilgiService _sevkBilgiService;
         ISiparisService _siparisService;
 
+        
         private void SiparisDetayDuzenle_Load(object sender, EventArgs e)
         {
             cbLogo.Checked = false;
@@ -54,9 +55,11 @@ namespace SiparisTakipPL
 
             Utilities.LoadComboBox(cmbKalite, _kaliteService.KaliteListele(), "kaliteAd", "kaliteId");
 
+            Utilities.LoadComboBox(cmbYuklemeTip, _otherEntitiesService.YuklemeTipListele(), "YuklemeTipAd", "YuklemeTipId");
+
             Utilities.LoadComboBox(cmbPalet, _otherEntitiesService.PaletListele(), "PaletAd", "PaletId");
 
-            Utilities.LoadComboBox(cmbYuklemeTip, _otherEntitiesService.YuklemeTipListele(), "YuklemeTipAd", "YuklemeTipId");
+
         }
 
         private void SiparisDetaylariniGetir()
@@ -66,12 +69,22 @@ namespace SiparisTakipPL
             cmbKalite.SelectedValue = siparisDetay.KaliteId;
             cmbUrun.SelectedValue = siparisDetay.UrunId;
             cmbRenk.SelectedValue = siparisDetay.RenkId;
-            cmbPalet.SelectedValue = siparisDetay.PaletId;
             cmbYuklemeTip.SelectedValue = siparisDetay.YuklemeTipId;
+            cmbPalet.SelectedValue = siparisDetay.PaletId;
+
             numAdet.Value = siparisDetay.Adet;
             txtSiparisDetayAciklama.Text = siparisDetay.Aciklama;
             txtLogo.Text = siparisDetay.Logo;
             txtKutu.Text = siparisDetay.Kutu;
+
+            if (siparisDetay.Logo=="")
+            {
+                cbLogo.Checked = false;
+            }
+            else
+            {
+                cbLogo.Checked = true;
+            }
         }
 
         private void cmbUrun_Leave(object sender, EventArgs e)
@@ -81,22 +94,22 @@ namespace SiparisTakipPL
 
         private void btnGuncelle_Click(object sender, EventArgs e)
         {
-            var reuslt=_siparisDetayService.Guncelle(new SiparisDetay
+            var reuslt = _siparisDetayService.Guncelle(new SiparisDetay
             {
-                UrunId=(int)cmbUrun.SelectedValue,
+                UrunId = (int)cmbUrun.SelectedValue,
                 KaliteId = (int)cmbKalite.SelectedValue,
                 RenkId = (int)cmbRenk.SelectedValue,
-                PaletId = (int)cmbPalet.SelectedValue,
                 YuklemeTipId = (int)cmbYuklemeTip.SelectedValue,
+                PaletId = (int)cmbPalet.SelectedValue,
                 Logo = txtLogo.Text,
                 Aciklama = txtSiparisDetayAciklama.Text,
-                Adet=(int)numAdet.Value,
-                Kutu=txtKutu.Text,
+                Adet = (int)numAdet.Value,
+                Kutu = txtKutu.Text,
 
                 SiparisDetayId = Siparislerim._siparisDetayId
 
             });
-            if (reuslt==0)
+            if (reuslt == 0)
             {
                 MessageBox.Show("Siparişe ait Yükleme Planı oluşturulduğu için Sipariş Güncellenemyior!");
             }
@@ -117,27 +130,35 @@ namespace SiparisTakipPL
                     txtKutu.Visible = false;
                     cmbPalet.Enabled = true;
                     txtKutu.Text = "";
-                    //cmbPalet.SelectedValue = 0;
+                    cmbPalet.SelectedValue = 0;
                 }
-                else
+                else if (yuklemeTip.Kutu == 1)
                 {
                     txtKutu.Visible = true;
                     cmbPalet.Enabled = false;
                     cmbPalet.SelectedValue = 5;
                 }
+                else if (yuklemeTip.Kutu == 2)
+                {
+                    txtKutu.Visible = true;
+                    cmbPalet.Enabled = true;
+                    cmbPalet.SelectedValue = 0;
+                }
             }
         }
 
         private void cbLogo_CheckedChanged(object sender, EventArgs e)
-        {
-            if (cbLogo.Checked)
-            {
-                txtLogo.Visible = true;
-            }
-            else
-            {
-                txtLogo.Visible = false;
-            }
-        }
+        {      
+                if (cbLogo.Checked)
+                {
+                    txtLogo.Visible = true;
+                }
+                else
+                {
+                    txtLogo.Visible = false;
+                }
+            }       
     }
 }
+
+

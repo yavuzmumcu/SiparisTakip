@@ -167,11 +167,17 @@ namespace SiparisTakipPL
                     txtKutu.Text = "";
                     cmbPalet.SelectedValue = 0;
                 }
-                else
+                else if(yuklemeTip.Kutu==1)
                 {
                     txtKutu.Visible = true;
                     cmbPalet.Enabled = false;
                     cmbPalet.SelectedValue = 5;
+                }
+                else if (yuklemeTip.Kutu == 2)
+                {
+                    txtKutu.Visible = true;
+                    cmbPalet.Enabled = true;
+                    cmbPalet.SelectedValue = 0;
                 }
             }
         }

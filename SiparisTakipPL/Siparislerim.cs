@@ -52,11 +52,8 @@ namespace SiparisTakipPL
         }
 
         private void btnDuzenle_Click(object sender, EventArgs e)
-        {
-            
-                new SiparisDetayDuzenle().ShowDialog();
-            
-            
+        {            
+                new SiparisDetayDuzenle().ShowDialog();                     
         }
 
         private void btnSiparisDetaySil_Click(object sender, EventArgs e)
